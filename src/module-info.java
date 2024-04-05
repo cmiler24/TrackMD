@@ -1,4 +1,4 @@
-module MedicalMD {
+module TrackMD {
 	requires javafx.controls;
 	requires javafx.fxml;
 	
