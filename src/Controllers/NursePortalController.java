@@ -1,68 +1,64 @@
 package Controllers;
 
+import java.io.IOException;
+
+import application.ViewFactory;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
-public class NursePortalController {
-
+public class NurseEntrancePortalController {
+	
     @FXML
-    private TextArea allergiesTA;
-
-    @FXML
-    private DatePicker birthDate;
-
-    @FXML
-    private TextField bloodPressureTF;
-
-    @FXML
-    private Button findPatientBtn;
-
-    @FXML
-    private TextField firstName;
-
-    @FXML
-    private TextArea healthConcernsTA;
-
-    @FXML
-    private TextField heightTF;
-
-    @FXML
-    private ListView<?> immunizationList;
-
-    @FXML
-    private TextField lastName;
+    private Button existingPatientBtn;
 
     @FXML
     private Button logOutBtn;
 
     @FXML
-    private Button messagePatientBtn;
+    private Button newPatientBtn;
 
     @FXML
-    private Label patientName;
+    private Label patientNameLabel;
 
     @FXML
-    private ListView<?> prevHealthList;
-
-    @FXML
-    private ListView<?> prevMedList;
-
-    @FXML
-    private Hyperlink registerPatientBtn;
-
-    @FXML
-    private Button saveInfoBtn;
-
-    @FXML
-    private TextField tempTF;
-
-    @FXML
-    private TextField weightTF;
-
+    private Button viewMessagesBtn;
+    
+    
+    public NurseEntrancePortalController(){
+    	//System.out.print("control");
+    }
+    public void initialize() {
+    	//handler for button
+    	logOutBtn.setOnAction( e -> {
+			//System.out.print("clicked");
+			ViewFactory.getViewFactoryInstance().showLoginView(e);
+		});
+    	
+    	//handler for existing patient
+    	existingPatientBtn.setOnAction( e -> {
+			//System.out.print("clicked");
+			ViewFactory.getViewFactoryInstance().showNurseView(e);
+		});
+    	
+    	//handler for existing patient
+    	newPatientBtn.setOnAction( e -> {
+			//System.out.print("clicked");showMessageView(
+			ViewFactory.getViewFactoryInstance().showRegisterPatientView(e);
+		});
+    	
+    	//handler for viewmessage button
+    	viewMessagesBtn.setOnAction( e -> {
+			//System.out.print("clicked");
+			ViewFactory.getViewFactoryInstance().showMessageView(e);
+		});
+    }
+    
+    
 }
