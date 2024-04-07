@@ -234,25 +234,30 @@ public class PatientVisitFile {
 			}
 		}
 		number = number- 1;
-		visitNum = number+"";
-		z =  new File(f+ l+ date+ "visit" + visitNum + ".txt");
-		Scanner scOne = new Scanner(z);
-		fName = scOne.nextLine();
-		lName = scOne.nextLine();
-		dateOfBirth = scOne.nextLine();
-		height = scOne.nextLine();
-		weight = scOne.nextLine();
-		bodyTemp = scOne.nextLine();
-		bloodPress = scOne.nextLine();
-		visitNum = scOne.nextLine();
-		allergies = scOne.nextLine();
-		previousHealth = scOne.nextLine();
-		previousMed = scOne.nextLine();
-		healthConcerns = scOne.nextLine();
-		historyOfImmunization = scOne.nextLine();
-		nurseRecommendations = scOne.nextLine();
-		newPrescription = scOne.nextLine();
-		scOne.close();
+		if(number== 0) {
+			
+		}
+		else {
+			visitNum = number+"";
+			z =  new File(f+ l+ date+ "visit" + visitNum + ".txt");
+			Scanner scOne = new Scanner(z);
+			fName = scOne.nextLine();
+			lName = scOne.nextLine();
+			dateOfBirth = scOne.nextLine();
+			height = scOne.nextLine();
+			weight = scOne.nextLine();
+			bodyTemp = scOne.nextLine();
+			bloodPress = scOne.nextLine();
+			visitNum = scOne.nextLine();
+			allergies = scOne.nextLine();
+			previousHealth = scOne.nextLine();
+			previousMed = scOne.nextLine();
+			healthConcerns = scOne.nextLine();
+			historyOfImmunization = scOne.nextLine();
+			nurseRecommendations = scOne.nextLine();
+			newPrescription = scOne.nextLine();
+			scOne.close();
+		}
 	}
 	
 	//change new prescription
