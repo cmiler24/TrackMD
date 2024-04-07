@@ -1,5 +1,6 @@
 package Controllers;
 
+import application.ViewFactory;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -25,5 +26,25 @@ public class RegisterPatientController {
 
     @FXML
     private Button registerBtn;
-
+    
+    public  RegisterPatientController () {
+    	
+    }
+    
+    public void initialize() {
+    	logOutBtn.setOnAction( e -> {
+			//System.out.print("clicked");
+			ViewFactory.getViewFactoryInstance().showLoginView(e);
+		});
+    	
+    	findPatientLink.setOnAction( e -> {
+			//System.out.print("clicked");
+			ViewFactory.getViewFactoryInstance().showNurseView(e);
+		});
+    	
+    	registerBtn.setOnAction( e -> {
+			//System.out.print("clicked");
+			ViewFactory.getViewFactoryInstance().showNurseView(e);
+		});
+    }
 }
