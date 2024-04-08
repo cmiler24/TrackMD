@@ -13,13 +13,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.NursePortalController">
    <children>
       <Group layoutX="52.0" layoutY="172.0">
          <children>
             <HBox alignment="CENTER" layoutX="1.0" layoutY="217.0">
                <children>
-                  <Label text="If not found," />
+                  <Label text="If not found," fx:id="errorLabel" />
                   <Hyperlink fx:id="registerPatientBtn" text="register new patient" />
                </children>
             </HBox>
@@ -44,7 +44,7 @@
       <Label layoutX="368.0" layoutY="145.0" text="Patient: " />
       <Label fx:id="patientName" layoutX="424.0" layoutY="144.0" text="John Doe" />
       <Label layoutX="684.0" layoutY="146.0" text="Previous Health Issues" />
-      <ListView fx:id="prevHealthList" layoutX="674.0" layoutY="172.0" prefHeight="134.0" prefWidth="264.0" />
+      <TextField fx:id="prevHealthList" layoutX="674.0" layoutY="172.0" prefHeight="134.0" prefWidth="264.0" />
       <Label layoutX="365.0" layoutY="226.0" text="Weight" />
       <Label layoutX="364.0" layoutY="267.0" text="Height" />
       <Label layoutX="364.0" layoutY="307.0" text="Body Temperature (°F)" />
@@ -57,8 +57,8 @@
       <Label layoutX="364.0" layoutY="515.0" text="Health concerns" />
       <TextArea fx:id="healthConcernsTA" layoutX="356.0" layoutY="534.0" prefHeight="76.0" prefWidth="237.0" />
       <Label layoutX="684.0" layoutY="355.0" text="Previous Medication" />
-      <ListView fx:id="prevMedList" layoutX="674.0" layoutY="381.0" prefHeight="134.0" prefWidth="264.0" />
+      <TextField fx:id="prevMedList" layoutX="674.0" layoutY="381.0" prefHeight="134.0" prefWidth="264.0" />
       <Label layoutX="984.0" layoutY="146.0" text="Immunization History" />
-      <ListView fx:id="immunizationList" layoutX="974.0" layoutY="171.0" prefHeight="403.0" prefWidth="264.0" />
+      <TextField fx:id="immunizationList" layoutX="974.0" layoutY="171.0" prefHeight="403.0" prefWidth="264.0" />
    </children>
 </AnchorPane>

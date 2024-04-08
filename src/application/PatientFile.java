@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class PatientFile {
+	private static PatientFile INSTANCE;
 	private String fName;
 	private String lName;
 	private String dateOfBirth;
@@ -18,6 +19,13 @@ public class PatientFile {
 		phone = "";
 		email = "";
 	}
+	
+	 public static PatientFile getFileInstance() {
+			if (INSTANCE == null) {
+				INSTANCE = new PatientFile();
+			}
+			return INSTANCE;
+	 }
 	
 	//accessor for fname
 	public String getFName() {
@@ -77,7 +85,7 @@ public class PatientFile {
 		}
 		else {
 			FileWriter myWriter = new FileWriter(z);
-			myWriter.write(fName+"\n"+lName + "\n"+ dateOfBirth + "\n"+ phone + "\n"+ email );
+			myWriter.write(fName+"\n"+lName + "\n"+ dateOfBirth + "\n"+ phone + "\n"+ email + "\n");
 			myWriter.close();
 		}
 	 
@@ -85,15 +93,15 @@ public class PatientFile {
 	//get file
 	 public void accessFile(String fName, String lName, String date) throws FileNotFoundException {
 		 File fOne = new File(fName+ lName+ date+".txt");
-		 Scanner scOne = new Scanner(fOne);
 		 if(fOne.exists() && !fOne.isDirectory()) { 
+			 	Scanner scOne = new Scanner(fOne);
 				this.fName = scOne.nextLine();
 				this.lName = scOne.nextLine();
 				dateOfBirth = scOne.nextLine();
 				phone = scOne.nextLine();
 				email = scOne.nextLine();
+				scOne.close();
 		 }
-		 scOne.close();
 	 }
 	 
 	 //change contact information 

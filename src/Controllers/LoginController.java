@@ -1,27 +1,20 @@
 package Controllers;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.FileNotFoundException;
 
 import Models.DataModel;
-import Models.User;
+import application.LoginFile;
 import application.ViewFactory;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 
@@ -33,7 +26,7 @@ public class LoginController {
 	@FXML
 	private Button signInBtn;
 	@FXML
-	private VBox signInVBox;
+	private HBox signInHBox;
 	@FXML
 	private RadioButton patientRadioBtn;
 	@FXML
@@ -41,11 +34,17 @@ public class LoginController {
 	@FXML
 	private RadioButton doctorRadioBtn;
 	@FXML
+	private Hyperlink createAccountLink;
+	@FXML
 	private ToggleGroup Iama;
+	
+	public LoginController() {
+//		System.out.println("Login in contructor called");
+	}
 	
 //	@Override
 	public void initialize() {	
-		System.out.println("initializing");
+//		System.out.println("initializing");
 		
 		username.setOnKeyPressed(e->{
 			if(e.getCode() == KeyCode.ENTER) {
@@ -55,7 +54,7 @@ public class LoginController {
 		
 		password.setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.ENTER) {
-//				signInBtn.requestFocus();
+				signInBtn.requestFocus();
 				signInBtn.fire();
 			}
 		});
@@ -66,68 +65,67 @@ public class LoginController {
 			model.getUsersData();
 			
 			RadioButton selectedRB = (RadioButton) Iama.getSelectedToggle();
-			Label selectOptionLabel = new Label("Please select an option on your left");
-			selectOptionLabel.setTextFill(Color.color(1, 0, 0));
 			if (selectedRB == null) {				
-//				if (signInVBox.getChildren().getLast() == selectOptionL)
-				signInVBox.getChildren().add(selectOptionLabel);
+				Label selectOptionLabel = new Label("Please select an option on your left");
+				selectOptionLabel.setTextFill(Color.color(1, 0, 0));
+				signInHBox.getChildren().add(selectOptionLabel);
 				return;
 			}
 			
 			String role = selectedRB.getText();
-			if (role.toLowerCase().contains("patient")) {
+			role = role.toLowerCase(); 	
+			
+			//fixes poor labeling
+			if(role.contains("patient")) {
 				role = "patient";
 			}
-			User user = new User(username.getText(), password.getText(), role);
-			
 			// redirect to correct view using role
-			if (authenticateUser(user)) {
-				// TODO:
-				switch (role) {
-				case "patient":
-					ViewFactory.getViewFactoryInstance().showPatientView(e);
-					break;
-				case "nurse":
+			try {
+				if (authorizeUser()) {
+					// TODO:
+					switch (role) {
+					case "patient":
 					ViewFactory.getViewFactoryInstance().showNurseView(e);
-					break;
-				case "doctor":
+					case "doctor":
 					ViewFactory.getViewFactoryInstance().showDoctorView(e);
-					break;
-				default:
-					return;
+						break;
+					case "nurse":
+					ViewFactory.getViewFactoryInstance().showNurseView(e);
+						break;
+					default:
+//						System.out.print(role);
+						break;
+					}
 				}
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		});
+		
+//		createAccountLink.setOnAction(e -> {
+//				ViewFactory.getViewFactoryInstance().showPatientSignUpView(e);			
+//		});	
 	}
 	
-	public boolean authenticateUser(User user)  {
-		// TODO
-		Path path = FileSystems.getDefault().getPath("src/Models/users.txt");
-//		Path path = Paths.get("src/Models/users.txt");
-
-		try {
-			BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
-			String line = reader.readLine();
-			String [] str = new String[3];
-
-			while (line != null) {
-				line = reader.readLine();
-				if (line == null) {
-					System.out.println("eof");
-					reader.close();
-					break;
-				}
-				str = line.split(",");
-				
-				if (str[0].equals(user.getUsername()) && str[1].equals(user.getPassword()) && str[2].matches(user.getRole())) {
-					System.out.println("match");
-					return true;
-				};
-			}
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+	
+	public boolean authorizeUser() throws FileNotFoundException {
+		// check if authenticated
+		LoginFile.getFileInstance().accessFile(username.getText());
+		RadioButton selectedRB = (RadioButton) Iama.getSelectedToggle();
+		String role = selectedRB.getText(); 
+		//fixes poor labeling
+		if(role.contains("Patient")) {
+			role = "Patient";
+		}
+		//checks validation if false will return false
+		if(username.getText().equals(LoginFile.getFileInstance().getUserName())
+			&& password.getText().equals(LoginFile.getFileInstance().getPassword()) 
+			&& role.equals(LoginFile.getFileInstance().getType())) {
+//				System.out.println(role);
+				return true;
 		}
 		return false;
 	}
+	
 }
