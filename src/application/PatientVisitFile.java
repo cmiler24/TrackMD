@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class PatientVisitFile {
+	private static PatientVisitFile INSTANCE;
 	private String fName;
 	private String lName;
 	private String dateOfBirth;
@@ -40,6 +41,14 @@ public class PatientVisitFile {
 		historyOfImmunization = "";
 		nurseRecommendations = "";
 		newPrescription = "";
+	}
+	
+	//makes static
+	public static PatientVisitFile getFileInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new PatientVisitFile();
+		}
+		return INSTANCE;
 	}
 	
 	//accessor for fname
@@ -93,7 +102,7 @@ public class PatientVisitFile {
 	}
 	
 	//accessor for previous prescriptions
-	public String getPrviousMed() {
+	public String getPreviousMed() {
 		return previousMed;
 	}
 	
