@@ -2,6 +2,7 @@ package Controllers;
 
 import java.io.IOException;
 
+import application.LoginFile;
 import application.PatientFile;
 import application.ViewFactory;
 import javafx.fxml.FXML;
@@ -9,74 +10,97 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
 
-public class RegisterPatientController {
-
-    @FXML
-    private DatePicker dateOfBirth;
+public class PatientSignUpController {
 
     @FXML
-    private Hyperlink findPatientLink;
+    private DatePicker birthDate;
 
     @FXML
-    private TextField firstNameTF;
+    private Button createAccountBtn;
 
     @FXML
-    private TextField lastNameTF;
+    private PasswordField email;
 
     @FXML
-    private Button logOutBtn;
+    private TextField firstName;
 
     @FXML
-    private Button registerBtn;
+    private TextField lastName;
+
+    @FXML
+    private PasswordField password;
+
+    @FXML
+    private PasswordField password2;
+
+    @FXML
+    private Hyperlink signInHyperlink;
+
+    @FXML
+    private PasswordField username;
     
     @FXML
-    private Label  errorLabel;
+    private Label errorLabel;
     
-    public  RegisterPatientController () {
+    //handler for log out
+    public void initialize(){
+    	//handler for log out
+    	signInHyperlink.setOnAction(e->{
+    		ViewFactory.getViewFactoryInstance().showLoginView(e);
+    	});
     	
-    }
-    
-    public void initialize() {
-    	logOutBtn.setOnAction( e -> {
-			//System.out.print("clicked");
-			ViewFactory.getViewFactoryInstance().showLoginView(e);
-		});
-    	
-    	findPatientLink.setOnAction( e -> {
-			//System.out.print("clicked");
-			ViewFactory.getViewFactoryInstance().showNurseView(e);
-		});
-    	
-    	
-    	//button handler for create nre user
-    	registerBtn.setOnAction( e -> {
-			//System.out.print("clicked");
-    		
-    		if(dateOfBirth.getValue() == null) {
+    	//handler for create account
+    	createAccountBtn.setOnAction(e->{
+    		//validates inputs
+    		if(birthDate.getValue() == null) {
     			errorLabel.setText("Please select a date");
     		}
-    		else if(firstNameTF.getText().equals("")) {
+    		else if(firstName.getText().equals("")) {
     			errorLabel.setText("Please enter the first name");
     		}
-    		else if(lastNameTF.getText().equals("")) {
+    		else if(lastName.getText().equals("")) {
     			errorLabel.setText("Please enter the last name");
     		}
+    		else if(password.getText().equals("")) {
+    			errorLabel.setText("Please enter password");
+    		}
+    		else if(!password2.getText().equals(password.getText())) {
+    			errorLabel.setText("Passwords do not match");
+    		}
+    		else if(username.getText().equals("")) {
+    			errorLabel.setText("Please enter a username");
+    		}
     		else {
-    			PatientFile.getFileInstance().setDateOfBirth(dateOfBirth.getValue().toString());
-    			PatientFile.getFileInstance().setFName(firstNameTF.getText());
-    			PatientFile.getFileInstance().setLName(lastNameTF.getText());
-    			System.out.print(firstNameTF.getText());
+    			LoginFile.getFileInstance().setDateOfBirth(birthDate.getValue().toString());
+    			LoginFile.getFileInstance().setFName((firstName.getText()));
+    			LoginFile.getFileInstance().setLName((lastName.getText()));
+    			LoginFile.getFileInstance().setType("Patient");
+    			LoginFile.getFileInstance().setPassword(password.getText());
+    			LoginFile.getFileInstance().setUserName(username.getText());
+    			PatientFile.getFileInstance().setDateOfBirth(birthDate.getValue().toString());
+    			PatientFile.getFileInstance().setFName((firstName.getText()));
+    			PatientFile.getFileInstance().setLName((lastName.getText()));
+    			PatientFile.getFileInstance().setEmail(email.getText());
     			try {
-					PatientFile.getFileInstance().createFile();
+					LoginFile.getFileInstance().creatFile();
+					//System.out.print(true);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-    			errorLabel.setText("Patient Created Click ->");
+    			try {
+					PatientFile.getFileInstance().contactChangeFileEdit();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+    			//send it to the patient view
+    			ViewFactory.getViewFactoryInstance().showPatientView(e);
     		}
     	});
     }
+
 }
