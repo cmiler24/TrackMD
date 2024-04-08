@@ -82,12 +82,14 @@ public class LoginController {
 					// TODO:
 					switch (role) {
 					case "patient":
-					ViewFactory.getViewFactoryInstance().showNurseView(e);
+					case "patient":
+						ViewFactory.getViewFactoryInstance().showPatientView(e);
+						break;
 					case "doctor":
-					ViewFactory.getViewFactoryInstance().showDoctorView(e);
+						ViewFactory.getViewFactoryInstance().showDoctorView(e);
 						break;
 					case "nurse":
-					ViewFactory.getViewFactoryInstance().showNurseView(e);
+						ViewFactory.getViewFactoryInstance().showNurseView(e);
 						break;
 					default:
 //						System.out.print(role);
