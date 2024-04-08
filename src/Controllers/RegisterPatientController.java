@@ -1,112 +1,82 @@
 package Controllers;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import application.LoginFile;
 import application.PatientFile;
-import application.PatientVisitFile;
 import application.ViewFactory;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
-public class PatientPortalController {
-
-    @FXML
-    private TextField bloodPressureTF;
+public class RegisterPatientController {
 
     @FXML
-    private TextArea commentTA;
+    private DatePicker dateOfBirth;
 
     @FXML
-    private Button editContactInfoBtn;
+    private Hyperlink findPatientLink;
 
     @FXML
-    private TextField emailTF;
+    private TextField firstNameTF;
 
     @FXML
-    private TextField heightTF;
+    private TextField lastNameTF;
 
     @FXML
     private Button logOutBtn;
 
     @FXML
-    private ListView<?> messagesList;
-
-    @FXML
-    private Label patientName;
-
-    @FXML
-    private TextField phoneNumberTF;
-
-    @FXML
-    private TextArea replyTF;
-
-    @FXML
-    private Button sendBtn;
-
-    @FXML
-    private Hyperlink signUpBtn;
-
-    @FXML
-    private TextField tempTF;
-
-    @FXML
-    private TextField weightTF;
+    private Button registerBtn;
     
-    public PatientPortalController() throws FileNotFoundException {
+    @FXML
+    private Label  errorLabel;
+    
+    public  RegisterPatientController () {
     	
     }
     
-    public void initialize() throws FileNotFoundException{	
+    public void initialize() {
+    	logOutBtn.setOnAction( e -> {
+			//System.out.print("clicked");
+			ViewFactory.getViewFactoryInstance().showLoginView(e);
+		});
     	
-    	//gets the patient visit from login or sign up
-    	PatientVisitFile.getFileInstance().accessFile(
-    			LoginFile.getFileInstance().getFName()
-    			,LoginFile.getFileInstance().getLName()
-    			,LoginFile.getFileInstance().getDateOfBirth());
-    	PatientFile.getFileInstance().accessFile(
-    			LoginFile.getFileInstance().getFName()
-    			,LoginFile.getFileInstance().getLName()
-    			,LoginFile.getFileInstance().getDateOfBirth());
+    	findPatientLink.setOnAction( e -> {
+			//System.out.print("clicked");
+			ViewFactory.getViewFactoryInstance().showNurseView(e);
+		});
     	
-    	bloodPressureTF.setText(PatientVisitFile.getFileInstance().getBloodPressure());
-    	weightTF.setText(PatientVisitFile.getFileInstance().getWeight());
-    	heightTF.setText(PatientVisitFile.getFileInstance().getHeight());
-    	tempTF.setText(PatientVisitFile.getFileInstance().getBodyTemp());
-    	commentTA.setText(PatientVisitFile.getFileInstance().getHealthConcerns());
-    	patientName.setText(LoginFile.getFileInstance().getFName() +" "+ LoginFile.getFileInstance().getLName());
-    	phoneNumberTF.setText(PatientFile.getFileInstance().getPhone());
-    	emailTF.setText(PatientFile.getFileInstance().getEmail());
-    	// tests System.out.print(PatientVisitFile.getFileInstance().getBloodPressure());
-    	// System.out.print("error");
-    	//Handler for contact change button
-    	editContactInfoBtn.setOnAction(e->{
-    		PatientFile.getFileInstance().setEmail(emailTF.getText());
-    		PatientFile.getFileInstance().setPhone(phoneNumberTF.getText());
-    		try {
-				PatientFile.getFileInstance().contactChangeFileEdit();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+    	
+    	//button handler for create nre user
+    	registerBtn.setOnAction( e -> {
+			//System.out.print("clicked");
+    		
+    		if(dateOfBirth.getValue() == null) {
+    			errorLabel.setText("Please select a date");
+    		}
+    		else if(firstNameTF.getText().equals("")) {
+    			errorLabel.setText("Please enter the first name");
+    		}
+    		else if(lastNameTF.getText().equals("")) {
+    			errorLabel.setText("Please enter the last name");
+    		}
+    		else {
+    			PatientFile.getFileInstance().setDateOfBirth(dateOfBirth.getValue().toString());
+    			PatientFile.getFileInstance().setFName(firstNameTF.getText());
+    			PatientFile.getFileInstance().setLName(lastNameTF.getText());
+    			System.out.print(firstNameTF.getText());
+    			try {
+					PatientFile.getFileInstance().createFile();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+    			errorLabel.setText("Patient Created Click ->");
+    		}
     	});
-    	
-    	//handler for sign btn
-    	signUpBtn.setOnAction(e->{
-    		ViewFactory.getViewFactoryInstance().showPatientSignUpView(e);
-    	});
-    	
-    	//handler for log out
-    	logOutBtn.setOnAction(e->{
-    		ViewFactory.getViewFactoryInstance().showLoginView(e);
-    	});
-    	
     }
-
 }
