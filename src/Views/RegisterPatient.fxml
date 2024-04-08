@@ -17,7 +17,7 @@
          <children>
             <HBox alignment="CENTER" layoutX="5.0" layoutY="209.0">
                <children>
-                  <Label text="Patient already registered?" />
+                  <Label fx:id="errorLabel" text="Patient already registered?" />
                   <Hyperlink fx:id="findPatientLink" text="Find patient" />
                </children>
             </HBox>
