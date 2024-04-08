@@ -77,7 +77,7 @@ public class PatientFile {
 		}
 		else {
 			FileWriter myWriter = new FileWriter(z);
-			myWriter.write(fName+"\n"+lName + "\n"+ dateOfBirth + "\n"+ phone + "\n"+ email );
+			myWriter.write(fName+"\n"+lName + "\n"+ dateOfBirth + "\n"+ phone + "\n"+ email "\n" );
 			myWriter.close();
 		}
 	 
