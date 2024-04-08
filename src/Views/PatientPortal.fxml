@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PatientPortalController">
    <children>
       <HBox layoutX="104.0" layoutY="137.0">
          <children>
@@ -40,19 +40,12 @@
       <Button fx:id="sendBtn" layoutX="1076.0" layoutY="569.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="71.0" text="Send" />
       <TextArea fx:id="replyTF" layoutX="718.0" layoutY="555.0" prefHeight="72.0" prefWidth="314.0" />
       <Button fx:id="logOutBtn" layoutX="1155.0" layoutY="28.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="71.0" text="Log Out" />
-      <Label layoutX="422.0" layoutY="129.0" text="Visits" />
+      <Label layoutX="422.0" layoutY="350.0" text="View previous visit" />
       <ImageView fitHeight="63.0" fitWidth="91.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../resources/logo.png" />
          </image>
       </ImageView>
-      <ListView fx:id="visitsList" layoutX="422.0" layoutY="160.0" prefHeight="152.0" prefWidth="224.0" />
-      <Label layoutX="423.0" layoutY="340.0" text="Summary of 04/02/2024 Visit" />
-      <Label layoutX="596.0" layoutY="60.0" text="Patient Portal">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
       <HBox alignment="CENTER" layoutX="104.0" layoutY="613.0">
          <children>
             <Label text="Track your visits." />
