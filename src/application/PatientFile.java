@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class PatientFile {
+	private static PatientFile INSTANCE;
 	private String fName;
 	private String lName;
 	private String dateOfBirth;
@@ -18,6 +19,13 @@ public class PatientFile {
 		phone = "";
 		email = "";
 	}
+	
+	 public static PatientFile getFileInstance() {
+			if (INSTANCE == null) {
+				INSTANCE = new PatientFile();
+			}
+			return INSTANCE;
+	 }
 	
 	//accessor for fname
 	public String getFName() {
@@ -77,7 +85,7 @@ public class PatientFile {
 		}
 		else {
 			FileWriter myWriter = new FileWriter(z);
-			myWriter.write(fName+"\n"+lName + "\n"+ dateOfBirth + "\n"+ phone + "\n"+ email "\n" );
+			myWriter.write(fName+"\n"+lName + "\n"+ dateOfBirth + "\n"+ phone + "\n"+ email + "\n");
 			myWriter.close();
 		}
 	 
