@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import Models.DataModel;
 import Models.User;
 import application.ViewFactory;
 import javafx.fxml.FXML;
@@ -60,6 +61,10 @@ public class LoginController {
 		});
 		
 		signInBtn.setOnAction( e -> {			
+			
+			DataModel model = new DataModel();
+			model.getUsersData();
+			
 			RadioButton selectedRB = (RadioButton) Iama.getSelectedToggle();
 			Label selectOptionLabel = new Label("Please select an option on your left");
 			selectOptionLabel.setTextFill(Color.color(1, 0, 0));
