@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class LoginFile {
+	private static LoginFile INSTANCE;
 	 private String userName;
 	 private String password;
 	 private String type;
@@ -21,6 +22,13 @@ public class LoginFile {
 		 fName = "";
 		 lName = "";
 		 dateOfBirth = "";
+	 }
+	 
+	 public static LoginFile getFileInstance() {
+			if (INSTANCE == null) {
+				INSTANCE = new LoginFile();
+			}
+			return INSTANCE;
 	 }
 	 
 	 //mutator for password
@@ -92,7 +100,7 @@ public class LoginFile {
 			}
 			else {
 				FileWriter myWriter = new FileWriter(p);
-				myWriter.write(this.userName+"\n"+password + "\n"+ type + "\n"+ fName + "\n" + lName + "\n" + dateOfBirth);
+				myWriter.write(this.userName+"\n"+password + "\n"+ type + "\n"+ fName + "\n" + lName + "\n" + dateOfBirth + "\n");
 				myWriter.close();
 			}
 		 
@@ -101,16 +109,16 @@ public class LoginFile {
 	 //access file
 	 public void accessFile(String userName) throws FileNotFoundException {
 		 File fOne = new File(userName+".txt");
-		 Scanner scOne = new Scanner(fOne);
 		 if(fOne.exists() && !fOne.isDirectory()) { 
+			 	Scanner scOne = new Scanner(fOne);
 				this.userName = scOne.nextLine();
 				password = scOne.nextLine();
 				type = scOne.nextLine();
 				fName = scOne.nextLine();
 				lName = scOne.nextLine();
 				dateOfBirth = scOne.nextLine();
+				scOne.close();
 		 }
-		 scOne.close();
 	 }
 	 
 }
