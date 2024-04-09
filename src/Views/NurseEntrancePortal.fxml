@@ -17,7 +17,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label fx:id="patientNameLabel" text="PatientName">
+            <Label fx:id="patientNameLabel" text="Nurse ">
                <font>
                   <Font size="20.0" />
                </font>
