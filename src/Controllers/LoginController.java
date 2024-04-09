@@ -34,8 +34,6 @@ public class LoginController {
 	@FXML
 	private RadioButton doctorRadioBtn;
 	@FXML
-	private Hyperlink createAccountLink;
-	@FXML
 	private ToggleGroup Iama;
 	
 	public LoginController() {
@@ -43,15 +41,14 @@ public class LoginController {
 	}
 	
 //	@Override
-	public void initialize() {	
+	public void initialize() throws StringIndexOutOfBoundsException {	
 //		System.out.println("initializing");
-		
+
 		username.setOnKeyPressed(e->{
 			if(e.getCode() == KeyCode.ENTER) {
 				password.requestFocus();
 			}
 		});
-		
 		password.setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.ENTER) {
 				signInBtn.requestFocus();
@@ -60,9 +57,8 @@ public class LoginController {
 		});
 		
 		signInBtn.setOnAction( e -> {			
-			
-			DataModel model = new DataModel();
-			model.getUsersData();
+//			DataModel model = new DataModel();
+//			model.getUsersData();
 			
 			RadioButton selectedRB = (RadioButton) Iama.getSelectedToggle();
 			if (selectedRB == null) {				
@@ -81,16 +77,16 @@ public class LoginController {
 			}
 			// redirect to correct view using role
 			try {
-				if (authorizeUser()) {
+				if (authorizeUser(username.getText(), password.getText(), role)) {
 					// TODO:
 					switch (role) {
 					case "patient":
-					ViewFactory.getViewFactoryInstance().showNurseView(e);
+					ViewFactory.getViewFactoryInstance().showPatientView(e);
 					case "doctor":
 					ViewFactory.getViewFactoryInstance().showDoctorView(e);
 						break;
 					case "nurse":
-					ViewFactory.getViewFactoryInstance().showNurseView(e);
+					ViewFactory.getViewFactoryInstance().showNurseEntranceView(e);
 						break;
 					default:
 //						System.out.print(role);
@@ -102,27 +98,16 @@ public class LoginController {
 				e1.printStackTrace();
 			}
 		});
-		
-//		createAccountLink.setOnAction(e -> {
-//				ViewFactory.getViewFactoryInstance().showPatientSignUpView(e);			
-//		});	
 	}
-	
-	
-	public boolean authorizeUser() throws FileNotFoundException {
-		// check if authenticated
-		LoginFile.getFileInstance().accessFile(username.getText());
-		RadioButton selectedRB = (RadioButton) Iama.getSelectedToggle();
-		String role = selectedRB.getText(); 
-		//fixes poor labeling
-		if(role.contains("Patient")) {
-			role = "Patient";
-		}
-		//checks validation if false will return false
-		if(username.getText().equals(LoginFile.getFileInstance().getUserName())
-			&& password.getText().equals(LoginFile.getFileInstance().getPassword()) 
+
+	public boolean authorizeUser(String username, String password, String role) throws FileNotFoundException {
+		// check if file exists a.k.a if authenticated
+		LoginFile.getFileInstance().accessFile(username);
+		
+		//checks validation username and password. 
+		if(username.equals(LoginFile.getFileInstance().getUserName())
+			&& password.equals(LoginFile.getFileInstance().getPassword()) 
 			&& role.equals(LoginFile.getFileInstance().getType())) {
-//				System.out.println(role);
 				return true;
 		}
 		return false;

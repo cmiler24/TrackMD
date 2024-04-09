@@ -93,8 +93,8 @@ public class LoginFile {
 	 }
 	 
 	 //create file
-	 public void creatFile() throws IOException {
-			File p =  new File(userName+".txt");
+	 public void createFile() throws IOException {
+			File p =  new File("Data/"+userName+".txt");
 			if(p.exists() && !p.isDirectory()) {
 				
 			}
@@ -102,14 +102,13 @@ public class LoginFile {
 				FileWriter myWriter = new FileWriter(p);
 				myWriter.write(this.userName+"\n"+password + "\n"+ type + "\n"+ fName + "\n" + lName + "\n" + dateOfBirth + "\n");
 				myWriter.close();
-			}
-		 
+			} 
 	 }
 	 
 	 //access file
 	 public void accessFile(String userName) throws FileNotFoundException {
-		 File fOne = new File(userName+".txt");
-		 if(fOne.exists() && !fOne.isDirectory()) { 
+		 File fOne = new File("Data/"+userName+".txt");			 
+		 if(fOne.exists() && !fOne.isDirectory()) {	
 			 	Scanner scOne = new Scanner(fOne);
 				this.userName = scOne.nextLine();
 				password = scOne.nextLine();

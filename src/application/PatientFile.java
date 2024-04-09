@@ -79,7 +79,7 @@ public class PatientFile {
 	
 	//create file
 	public void createFile() throws IOException {
-		File z =  new File(fName+ lName+ dateOfBirth+".txt");
+		File z =  new File("Data/"+fName+ lName+ dateOfBirth+".txt");
 		if(z.exists() && !z.isDirectory()) {
 			
 		}
@@ -92,7 +92,7 @@ public class PatientFile {
 	}
 	//get file
 	 public void accessFile(String fName, String lName, String date) throws FileNotFoundException {
-		 File fOne = new File(fName+ lName+ date+".txt");
+		 File fOne = new File("Data/"+fName+ lName+ date+".txt");
 		 if(fOne.exists() && !fOne.isDirectory()) { 
 			 	Scanner scOne = new Scanner(fOne);
 				this.fName = scOne.nextLine();
@@ -106,7 +106,7 @@ public class PatientFile {
 	 
 	 //change contact information 
 	 public void  contactChangeFileEdit() throws IOException {
-		 File fOne = new File(fName+ lName+ dateOfBirth+".txt");
+		 File fOne = new File("Data/"+fName+ lName+ dateOfBirth+".txt");
 		 fOne.delete();
 		 createFile();	 
 	 }

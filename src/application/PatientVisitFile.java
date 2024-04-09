@@ -205,12 +205,12 @@ public class PatientVisitFile {
 	public void createFile() throws IOException {
 		visitNum = "1";
 		int number = 1;
-		File z =  new File(fName+ lName+ dateOfBirth+ "visit" + visitNum + ".txt");
+		File z =  new File("Data/"+fName+ lName+ dateOfBirth+ "visit" + visitNum + ".txt");
 		boolean exist = true;
 		while(exist == true) {
 			visitNum = number+"";
-			z = new File(fName+ lName+ dateOfBirth+ "visit" + visitNum + ".txt");
-			if(z.exists() && !z.isDirectory()) { 
+			z = new File("Data/"+fName+ lName+ dateOfBirth+ "visit" + visitNum + ".txt");
+			if(z.exists() && !z.isDirectory()) {
 				number++;
 			}
 			else {
@@ -218,7 +218,7 @@ public class PatientVisitFile {
 				exist = false;
 			}
 		}
-		z =  new File(fName+ lName+ dateOfBirth+ "visit" + visitNum + ".txt");
+		z =  new File("Data/"+fName+ lName+ dateOfBirth+ "visit" + visitNum + ".txt");
 		FileWriter myWriter = new FileWriter(z);
 		myWriter.write(fName + "\n" + lName + "\n" + dateOfBirth + "\n"	+height+"\n" +weight + "\n" + bodyTemp + "\n"+
 					bloodPress+ "\n" +visitNum + "\n" + allergies + "\n" +previousHealth + "\n" + previousMed	
@@ -230,11 +230,11 @@ public class PatientVisitFile {
 	public void accessFile(String f, String l , String date) throws FileNotFoundException {
 		visitNum = "1";
 		int number = 1;
-		File z =  new File(f+ l+ date+ "visit" + visitNum + ".txt");
+		File z =  new File("Data/"+f+ l+ date+ "visit" + visitNum + ".txt");
 		boolean exist = true;
 		while(exist == true) {
 			visitNum = number+"";
-			z = new File(f+ l+ date+ "visit" + visitNum + ".txt");
+			z = new File("Data/"+f+ l+ date+ "visit" + visitNum + ".txt");
 			if(z.exists() && !z.isDirectory()) { 
 				number++;
 			}
@@ -248,7 +248,7 @@ public class PatientVisitFile {
 		}
 		else {
 			visitNum = number+"";
-			z =  new File(f+ l+ date+ "visit" + visitNum + ".txt");
+			z =  new File("Data/"+f+ l+ date+ "visit" + visitNum + ".txt");
 			Scanner scOne = new Scanner(z);
 			fName = scOne.nextLine();
 			lName = scOne.nextLine();
@@ -273,11 +273,11 @@ public class PatientVisitFile {
 	public void newPreCreateFile() throws IOException {
 		visitNum = "1";
 		int number = 1;
-		File z =  new File(fName+ lName+ dateOfBirth+ "visit" + visitNum + ".txt");
+		File z =  new File("Data/"+fName+ lName+ dateOfBirth+ "visit" + visitNum + ".txt");
 		boolean exist = true;
 		while(exist == true) {
 			visitNum = number+"";
-			z = new File(fName+ lName+ dateOfBirth+ "visit" + visitNum + ".txt");
+			z = new File("Data/"+fName+ lName+ dateOfBirth+ "visit" + visitNum + ".txt");
 			if(z.exists() && !z.isDirectory()) { 
 				number++;
 			}
@@ -287,7 +287,7 @@ public class PatientVisitFile {
 		}
 		number = number- 1;
 		visitNum = number+"";
-		z =  new File(fName+ lName+ dateOfBirth+ "visit" + visitNum + ".txt");
+		z =  new File("Data/"+fName+ lName+ dateOfBirth+ "visit" + visitNum + ".txt");
 		z.delete();
 		createFile();
 	}
