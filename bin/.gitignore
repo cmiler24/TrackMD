@@ -1,7 +1,5 @@
-/.DS_Store
-/Controllers/
-/Models/
-/Views/
 /application/
-/module-info.class
-/resources/
+/Controllers/
+/Services/
+/Views/
+/Models/
