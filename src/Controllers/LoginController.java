@@ -3,11 +3,12 @@ package Controllers;
 
 import java.io.FileNotFoundException;
 
-import Models.DataModel;
 import application.LoginFile;
+//import Models.User;
 import application.ViewFactory;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -60,10 +61,6 @@ public class LoginController {
 		});
 		
 		signInBtn.setOnAction( e -> {			
-			
-			DataModel model = new DataModel();
-			model.getUsersData();
-			
 			RadioButton selectedRB = (RadioButton) Iama.getSelectedToggle();
 			if (selectedRB == null) {				
 				Label selectOptionLabel = new Label("Please select an option on your left");
@@ -85,12 +82,13 @@ public class LoginController {
 					// TODO:
 					switch (role) {
 					case "patient":
-					ViewFactory.getViewFactoryInstance().showNurseView(e);
+						ViewFactory.getViewFactoryInstance().showPatientView(e);
+						break;
 					case "doctor":
-					ViewFactory.getViewFactoryInstance().showDoctorView(e);
+						ViewFactory.getViewFactoryInstance().showDoctorView(e);
 						break;
 					case "nurse":
-					ViewFactory.getViewFactoryInstance().showNurseView(e);
+						ViewFactory.getViewFactoryInstance().showNurseEntranceView(e);
 						break;
 					default:
 //						System.out.print(role);
@@ -103,11 +101,12 @@ public class LoginController {
 			}
 		});
 		
-//		createAccountLink.setOnAction(e -> {
-//				ViewFactory.getViewFactoryInstance().showPatientSignUpView(e);			
-//		});	
+		createAccountLink.setOnAction(e -> {
+				ViewFactory.getViewFactoryInstance().showPatientSignUpView(e);			
+		});	
+		
+		
 	}
-	
 	
 	public boolean authorizeUser() throws FileNotFoundException {
 		// check if authenticated

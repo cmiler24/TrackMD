@@ -5,16 +5,13 @@ public class User {
 	String email;
 	String password;
 	String role;
-	boolean isAuthenticated = false;
 	
 	
 	public User(String str, String password, String role) {
 		if (str.contains("@")) {
 			this.email = str;
-			this.username = null;
 		} else {
 			this.username = str;
-			this.email = null;
 		}
 		this.password = password;
 		this.role = role;
@@ -61,12 +58,5 @@ public class User {
 		this.role = role;
 	}
 	
-	public void printUser() {
-		System.out.println(this.username);
-		System.out.println(this.email);
-		System.out.println(this.password);
-		System.out.println(this.role);
-		System.out.println();
-	}	
 	
 }

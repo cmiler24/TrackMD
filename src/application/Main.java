@@ -1,5 +1,7 @@
 package application;
 	
+import java.io.IOException;
+
 import Controllers.DoctorPortalController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +10,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) throws IOException {
 		try {			
 			FXMLLoader loginLoader =  new FXMLLoader(getClass().getResource("/Views/Login.fxml"));
 			
@@ -19,7 +21,7 @@ public class Main extends Application {
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
-		}
+		}	
 	}
 	
 	public static void main(String[] args) {
