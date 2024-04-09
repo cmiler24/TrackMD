@@ -82,14 +82,13 @@ public class LoginController {
 					// TODO:
 					switch (role) {
 					case "patient":
-					case "patient":
 						ViewFactory.getViewFactoryInstance().showPatientView(e);
 						break;
 					case "doctor":
 						ViewFactory.getViewFactoryInstance().showDoctorView(e);
 						break;
 					case "nurse":
-						ViewFactory.getViewFactoryInstance().showNurseView(e);
+						ViewFactory.getViewFactoryInstance().showNurseEntranceView(e);
 						break;
 					default:
 //						System.out.print(role);
@@ -103,12 +102,11 @@ public class LoginController {
 		});
 		
 		createAccountLink.setOnAction(e -> {
-//				ViewFactory.getViewFactoryInstance().showPatientSignUpView(e);			
+				ViewFactory.getViewFactoryInstance().showPatientSignUpView(e);			
 		});	
 		
 		
 	}
-	
 	
 	public boolean authorizeUser() throws FileNotFoundException {
 		// check if authenticated
