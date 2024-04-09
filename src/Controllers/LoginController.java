@@ -1,13 +1,13 @@
 package Controllers;
 
-
 import java.io.FileNotFoundException;
 
-import Models.DataModel;
 import application.LoginFile;
+//import Models.User;
 import application.ViewFactory;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -34,6 +34,8 @@ public class LoginController {
 	@FXML
 	private RadioButton doctorRadioBtn;
 	@FXML
+	private Hyperlink createAccountLink;
+	@FXML
 	private ToggleGroup Iama;
 	
 	public LoginController() {
@@ -41,14 +43,15 @@ public class LoginController {
 	}
 	
 //	@Override
-	public void initialize() throws StringIndexOutOfBoundsException {	
+	public void initialize() {	
 //		System.out.println("initializing");
-
+		
 		username.setOnKeyPressed(e->{
 			if(e.getCode() == KeyCode.ENTER) {
 				password.requestFocus();
 			}
 		});
+		
 		password.setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.ENTER) {
 				signInBtn.requestFocus();
@@ -57,9 +60,6 @@ public class LoginController {
 		});
 		
 		signInBtn.setOnAction( e -> {			
-//			DataModel model = new DataModel();
-//			model.getUsersData();
-			
 			RadioButton selectedRB = (RadioButton) Iama.getSelectedToggle();
 			if (selectedRB == null) {				
 				Label selectOptionLabel = new Label("Please select an option on your left");
@@ -77,16 +77,17 @@ public class LoginController {
 			}
 			// redirect to correct view using role
 			try {
-				if (authorizeUser(username.getText(), password.getText(), role)) {
+				if (authorizeUser()) {
 					// TODO:
 					switch (role) {
 					case "patient":
-					ViewFactory.getViewFactoryInstance().showPatientView(e);
+						ViewFactory.getViewFactoryInstance().showPatientView(e);
+						break;
 					case "doctor":
-					ViewFactory.getViewFactoryInstance().showDoctorView(e);
+						ViewFactory.getViewFactoryInstance().showDoctorView(e);
 						break;
 					case "nurse":
-					ViewFactory.getViewFactoryInstance().showNurseEntranceView(e);
+						ViewFactory.getViewFactoryInstance().showNurseEntranceView(e);
 						break;
 					default:
 //						System.out.print(role);
@@ -98,16 +99,26 @@ public class LoginController {
 				e1.printStackTrace();
 			}
 		});
-	}
-
-	public boolean authorizeUser(String username, String password, String role) throws FileNotFoundException {
-		// check if file exists a.k.a if authenticated
-		LoginFile.getFileInstance().accessFile(username);
 		
-		//checks validation username and password. 
-		if(username.equals(LoginFile.getFileInstance().getUserName())
-			&& password.equals(LoginFile.getFileInstance().getPassword()) 
+		createAccountLink.setOnAction(e -> {
+				ViewFactory.getViewFactoryInstance().showPatientSignUpView(e);			
+		});	
+	}
+	
+	public boolean authorizeUser() throws FileNotFoundException {
+		// check if authenticated
+		LoginFile.getFileInstance().accessFile(username.getText());
+		RadioButton selectedRB = (RadioButton) Iama.getSelectedToggle();
+		String role = selectedRB.getText(); 
+		//fixes poor labeling
+		if(role.contains("Patient")) {
+			role = "Patient";
+		}
+		//checks validation if false will return false
+		if(username.getText().equals(LoginFile.getFileInstance().getUserName())
+			&& password.getText().equals(LoginFile.getFileInstance().getPassword()) 
 			&& role.equals(LoginFile.getFileInstance().getType())) {
+//				System.out.println(role);
 				return true;
 		}
 		return false;

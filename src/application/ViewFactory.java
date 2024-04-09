@@ -40,7 +40,6 @@ public class ViewFactory {
 			Scene scene = new Scene(pane);
 			Stage stage = new Stage();
 			stage.setScene(scene);
-			stage.centerOnScreen();
 			stage.show();
 		} catch (IOException e1) {
 			e1.printStackTrace();

@@ -17,7 +17,7 @@
       <Group layoutX="52.0" layoutY="172.0">
          <children>
             <Button fx:id="findPatientBtn" layoutY="177.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" text="Find Patient" />
-            <Label layoutX="1.0" text="Seach Patient:" />
+            <Label layoutX="1.0" text="Seach Patient:" fx:id="errorLabel" />
             <TextField fx:id="firstName" layoutY="34.0" promptText="First Name" />
             <TextField fx:id="lastName" layoutX="1.0" layoutY="78.0" promptText="Last Name" />
             <DatePicker fx:id="birthDate" layoutY="128.0" prefHeight="25.0" prefWidth="151.0" promptText="Birthdate" />
@@ -78,13 +78,13 @@
          </children>
       </Group>
       <Label layoutX="684.0" layoutY="136.0" text="Previous Health Issues" />
-      <ListView fx:id="prevHealthTA" layoutX="674.0" layoutY="162.0" prefHeight="94.0" prefWidth="264.0" />
+      <TextField fx:id="prevHealthTA" layoutX="674.0" layoutY="162.0" prefHeight="94.0" prefWidth="264.0" />
       <Button fx:id="messagePatientBtn" layoutX="50.0" layoutY="620.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" text="Message Patient" />
       <Button fx:id="prescribeMedBtn" layoutX="1044.0" layoutY="627.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Prescribe Medication" />
       <Label layoutX="996.0" layoutY="129.0" text="Previous / Current Medication" />
-      <ListView fx:id="prevMedList" layoutX="986.0" layoutY="155.0" prefHeight="134.0" prefWidth="264.0" />
+      <TextField fx:id="prevMedList" layoutX="986.0" layoutY="155.0" prefHeight="134.0" prefWidth="264.0" />
       <Label layoutX="674.0" layoutY="281.0" text="Immunization History" />
-      <ListView fx:id="immuList" layoutX="674.0" layoutY="306.0" prefHeight="303.0" prefWidth="264.0" />
+      <TextField fx:id="immuList" layoutX="674.0" layoutY="306.0" prefHeight="303.0" prefWidth="264.0" />
       <Group layoutX="49.0" layoutY="457.0">
          <children>
             <Label text="Patient Information" />
@@ -102,12 +102,12 @@
             </HBox>
          </children>
       </Group>
-      <ListView fx:id="newMedList" layoutX="986.0" layoutY="415.0" prefHeight="191.0" prefWidth="264.0" />
+      <TextField fx:id="newMedList" layoutX="986.0" layoutY="415.0" prefHeight="191.0" prefWidth="264.0" />
       <Label layoutX="1044.0" layoutY="385.0" text="Prescribe New Medication" />
       <HBox layoutX="1015.0" layoutY="49.0">
          <children>
             <Label fx:id="patientName11" text="Welcome, " />
-            <Label fx:id="patientName1" text="DR. JOHN " />
+            <Label fx:id="patientName1" text="Doctor " />
          </children>
       </HBox>
    </children>
