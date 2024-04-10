@@ -11,7 +11,11 @@ import Services.MessagingService;
 
 public class Main extends Application {
 	@Override
+<<<<<<< HEAD
 	public void start(Stage primaryStage) throws IOException {	
+=======
+	public void start(Stage primaryStage) throws IOException {
+>>>>>>> e5add55ded6ebe9511d2cf0eee4e3889762b794b
 		try {			
 			FXMLLoader loginLoader =  new FXMLLoader(getClass().getResource("/Views/Login.fxml"));
 			
@@ -22,7 +26,7 @@ public class Main extends Application {
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
-		}
+		}	
 	}
 	
 	public static void main(String[] args) {

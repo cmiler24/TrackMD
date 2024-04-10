@@ -104,8 +104,6 @@ public class LoginController {
 		createAccountLink.setOnAction(e -> {
 				ViewFactory.getViewFactoryInstance().showPatientSignUpView(e);			
 		});	
-		
-		
 	}
 	
 	public boolean authorizeUser() throws FileNotFoundException {

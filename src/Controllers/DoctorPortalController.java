@@ -93,6 +93,7 @@ public class DoctorPortalController {
 
     }
     
+<<<<<<< HEAD
     
     @FXML
     void openMessagePopup() {
@@ -114,6 +115,8 @@ public class DoctorPortalController {
         }
     }
     
+=======
+>>>>>>> e5add55ded6ebe9511d2cf0eee4e3889762b794b
     public void initialize() {
     	//handler for log out
     	logOutBtn.setOnAction(e->{
@@ -121,7 +124,14 @@ public class DoctorPortalController {
     	});
     	
     	//view message
+<<<<<<< HEAD
     	messagePatientBtn.setOnAction(e -> openMessagePopup());
+=======
+    	messagePatientBtn.setOnAction( e -> {
+			//System.out.print("clicked");
+			ViewFactory.getViewFactoryInstance().showMessageView(e);
+		});
+>>>>>>> e5add55ded6ebe9511d2cf0eee4e3889762b794b
     	
     	//checks and get users
     	findPatientBtn.setOnAction(e->{

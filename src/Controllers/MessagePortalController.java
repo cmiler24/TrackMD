@@ -1,5 +1,6 @@
 package Controllers;
 
+import application.ViewFactory;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -22,4 +23,12 @@ public class MessagePortalController {
     @FXML
     private Button sendBtn;
 
+    MessagePortalController() {}
+    
+    public void initialize() {
+    	logOutBtn.setOnAction(e -> {
+    		ViewFactory.getViewFactoryInstance().showLoginView(e);
+    	});
+    }
+    
 }
