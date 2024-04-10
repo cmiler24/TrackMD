@@ -2,6 +2,9 @@ package Controllers;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import application.LoginFile;
 import application.PatientFile;
@@ -14,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import Services.MessagingService;
 
 public class PatientPortalController {
 
@@ -36,7 +40,7 @@ public class PatientPortalController {
     private Button logOutBtn;
 
     @FXML
-    private ListView<?> messagesList;
+    private ListView<String> messagesList;
 
     @FXML
     private Label patientName;
@@ -58,6 +62,8 @@ public class PatientPortalController {
 
     @FXML
     private TextField weightTF;
+    
+    private MessagingService messagingService = MessagingService.getInstance();
     
     public PatientPortalController() throws FileNotFoundException {
     	
@@ -107,6 +113,36 @@ public class PatientPortalController {
     		ViewFactory.getViewFactoryInstance().showLoginView(e);
     	});
     	
+    	sendBtn.setOnAction(e -> {
+    	    String messageContent = replyTF.getText().trim();
+    	    if (!messageContent.isEmpty()) {
+    	        String patientFirstName = LoginFile.getFileInstance().getFName(); // This needs to match exactly how conversation IDs are determined
+    	        try {
+    	            messagingService.sendMessageToConversation(patientFirstName, patientFirstName, messageContent); // Adjust as needed if sender/receiver logic is different
+    	            loadMessages(patientFirstName); // Refresh message display
+    	            replyTF.clear(); // Clear the input field after sending
+    	        } catch (IllegalArgumentException ex) {
+    	            System.out.println("Failed to send message: " + ex.getMessage());
+    	            // Handle error (e.g., show an error message to the user)
+    	        }
+    	    }
+    	});
+
+    	String patientFirstName = LoginFile.getFileInstance().getFName(); // Assume this gets the logged-in patient's first name
+        messagingService.ensureConversationExists(patientFirstName);
+        loadMessages(patientFirstName);
+    }
+    
+    private void loadMessages(String conversationId) {
+        if (messagingService.conversationExists(conversationId)) {
+            List<String> messages = messagingService.getMessagesFromConversation(conversationId)
+                .stream()
+                .map(message -> String.format("%s: %s", message.getSender(), message.getContent())) // Customize as needed
+                .collect(Collectors.toList());
+            messagesList.getItems().setAll(messages); // Display messages in the ListView
+        } else {
+            messagesList.getItems().clear(); // Ensure the list is clear if there's no conversation
+        }
     }
 
 }

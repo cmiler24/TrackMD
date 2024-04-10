@@ -52,12 +52,7 @@ public class NurseEntrancePortalController {
 			//System.out.print("clicked");showMessageView(
 			ViewFactory.getViewFactoryInstance().showRegisterPatientView(e);
 		});
-    	
-    	//handler for viewmessage button
-    	viewMessagesBtn.setOnAction( e -> {
-			//System.out.print("clicked");
-			ViewFactory.getViewFactoryInstance().showMessageView(e);
-		});
+
     }
     
     

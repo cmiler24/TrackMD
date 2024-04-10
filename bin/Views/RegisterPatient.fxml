@@ -11,13 +11,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.RegisterPatientController">
    <children>
       <Group layoutX="560.0" layoutY="244.0">
          <children>
             <HBox alignment="CENTER" layoutX="5.0" layoutY="209.0">
                <children>
-                  <Label text="Patient already registered?" />
+                  <Label  fx:id="errorLabel" text="Patient already registered?" />
                   <Hyperlink fx:id="findPatientLink" text="Find patient" />
                </children>
             </HBox>

@@ -1,16 +1,19 @@
 package application;
 	
+import java.io.IOException;
+
 import Controllers.DoctorPortalController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import Services.MessagingService;
 
 public class Main extends Application {
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) throws IOException {	
 		try {			
-			FXMLLoader loginLoader =  new FXMLLoader(getClass().getResource("/Views/PatientPortal.fxml"));
+			FXMLLoader loginLoader =  new FXMLLoader(getClass().getResource("/Views/Login.fxml"));
 			
 			Scene scene = new Scene(loginLoader.load());
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

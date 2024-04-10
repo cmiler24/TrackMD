@@ -82,6 +82,26 @@ public class NursePortalController {
     	//.out.print("control");
     }
     
+    @FXML
+    private void openMessagePopup() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/MessagePopup.fxml"));
+            Pane root = loader.load();
+
+            // Get the controller and initialize it
+            MessagePopupController controller = loader.getController();
+            controller.initController(firstName.getText(), "Nurse"); // Or "Nurse" for NursePortalController
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Messaging Patient");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle exception
+        }
+    }
+    
     public void initialize() {
     	//logout button handler
     	logOutBtn.setOnAction( e -> {
@@ -89,11 +109,7 @@ public class NursePortalController {
 			ViewFactory.getViewFactoryInstance().showLoginView(e);
 		});
     	
-    	//view message
-    	messagePatientBtn.setOnAction( e -> {
-			//System.out.print("clicked");
-			ViewFactory.getViewFactoryInstance().showMessageView(e);
-		});
+    	messagePatientBtn.setOnAction(e -> openMessagePopup());
     	
     	//register patient
     	registerPatientBtn.setOnAction( e -> {
